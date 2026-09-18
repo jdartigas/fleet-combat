@@ -1,0 +1,147 @@
+/* Fleet Combat -- layout and chrome. Muted industrial palette, usable down to
+   390px wide, every control a real tap target. */
+
+:root {
+  --bg: #0b0e13;
+  --panel: #131922;
+  --panel-edge: #212b38;
+  --text: #c7d2dc;
+  --muted: #7d8c9c;
+  --blue: #5d8fb3;
+  --red: #b3705d;
+  --shields: #4fb8d9;
+  --armor: #8d9aa6;
+  --structure: #79b87f;
+  --accent: #e8c46a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.45 ui-monospace, Menlo, Consolas, monospace;
+  padding: 12px;
+}
+
+header { margin-bottom: 10px; }
+
+h1 {
+  font-size: 16px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 4px;
+  color: var(--muted);
+}
+
+h2 { font-size: 15px; margin: 0 0 2px; }
+h3 {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 6px;
+}
+
+#turn-indicator { margin: 0; font-size: 14px; }
+#turn-indicator.blue { color: var(--blue); }
+#turn-indicator.red { color: var(--red); }
+#turn-indicator.over { color: var(--accent); }
+
+main {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+  max-width: 1100px;
+}
+
+section {
+  background: var(--panel);
+  border: 1px solid var(--panel-edge);
+  padding: 10px;
+}
+
+#board {
+  display: block;
+  width: 100%;
+  height: 300px;
+  touch-action: manipulation;
+}
+
+.legend {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.key {
+  display: inline-block;
+  width: 10px;
+  height: 8px;
+  margin: 0 4px 0 10px;
+  vertical-align: middle;
+}
+.legend .key:first-child { margin-left: 0; }
+.key.shields { background: var(--shields); }
+.key.armor { background: var(--armor); }
+.key.structure { background: var(--structure); }
+.note { display: block; margin-top: 4px; }
+
+.sub { margin: 0 0 6px; color: var(--muted); font-size: 12px; }
+
+.stat { display: flex; justify-content: space-between; gap: 12px; }
+.stat-label { color: var(--muted); }
+
+#move-actions, #fire-actions, #end-actions { margin-top: 12px; }
+
+.button-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+button {
+  min-height: 40px;
+  min-width: 40px;
+  padding: 0 10px;
+  background: #1b232e;
+  color: var(--text);
+  border: 1px solid var(--panel-edge);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+button:hover:not(:disabled) { border-color: var(--muted); }
+button:disabled { opacity: 0.35; cursor: default; }
+button.primary { border-color: var(--accent); color: var(--accent); }
+button.target { flex: 1 1 100%; text-align: left; }
+
+#initiative-list { margin: 0; padding-left: 22px; }
+#initiative-list li { color: var(--muted); }
+#initiative-list li.blue { color: var(--blue); }
+#initiative-list li.red { color: var(--red); }
+#initiative-list li.current { color: var(--accent); font-weight: bold; }
+#initiative-list li.dead { text-decoration: line-through; opacity: 0.45; }
+
+#log {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 12px;
+}
+#log li { padding: 2px 0; border-bottom: 1px solid #172029; color: var(--muted); }
+#log li:first-child { color: var(--text); }
+
+@media (min-width: 760px) {
+  main {
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+      "board controls"
+      "log   order";
+  }
+  #board-wrap { grid-area: board; }
+  #controls { grid-area: controls; }
+  #order { grid-area: order; }
+  #log-wrap { grid-area: log; }
+  #board { height: 340px; }
+  button.target { flex: 1 1 auto; }
+}

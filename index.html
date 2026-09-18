@@ -1,16 +1,57 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fleet Combat</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<p class="p1">&lt;h1&gt;Fleet Combat&lt;/h1&gt;</p>
+<header>
+  <h1>Fleet Combat</h1>
+  <p id="turn-indicator">Loading</p>
+</header>
+
+<main>
+  <section id="board-wrap">
+    <canvas id="board" width="720" height="300"></canvas>
+    <p class="legend">
+      <span class="key shields"></span>shields
+      <span class="key armor"></span>armor
+      <span class="key structure"></span>structure
+      <span class="note">Band 1 is closest to the enemy, band 6 furthest back.</span>
+    </p>
+  </section>
+
+  <section id="controls">
+    <div id="active-panel"></div>
+    <div id="move-actions"></div>
+    <div id="fire-actions"></div>
+    <div id="end-actions"></div>
+  </section>
+
+  <section id="order">
+    <h3>Initiative</h3>
+    <ol id="initiative-list"></ol>
+  </section>
+
+  <section id="log-wrap">
+    <h3>Combat log</h3>
+    <ul id="log"></ul>
+  </section>
+</main>
+
+<!-- Classic scripts in dependency order. ES modules are blocked by CORS on
+     file:// URLs, and the game has to run by opening this file directly. -->
+<script src="src/data/ships.js"></script>
+<script src="src/data/weapons.js"></script>
+<script src="src/core/initiative.js"></script>
+<script src="src/core/state.js"></script>
+<script src="src/core/combat.js"></script>
+<script src="src/core/turn.js"></script>
+<script src="src/render/board.js"></script>
+<script src="src/render/hud.js"></script>
+<script src="src/input.js"></script>
+<script src="src/main.js"></script>
 </body>
 </html>
